@@ -1,13 +1,14 @@
 #set text(lang: "es", region:"eu")
-//#set text( font: "New Computer Modern" )
-//#set text(12pt)
+#set text( font: "New Computer Modern" )
+#set text(12pt)
 #set heading( numbering: "1.1")
-#set page(numbering: "1 / 1")
+#set page(numbering: none)
+//set page(numbering: "1 / 1")
 
 #grid(columns: 1fr,  rows: (1fr,1fr), 
   grid.cell(align:center+horizon)[#link("https://typst.app/")[#rect(radius: 5pt,inset: 10mm,fill:rgb(66,164,182),text(90pt,fill: white)[TYPST])]], 
   
-  grid.cell(align:center+horizon)[#text(30pt)[*Primeros pasos *\ #datetime.today().display()\ V1.0 \ #text(12pt)[correode.toni\@outlook.es] ]],  
+  grid.cell(align:center+horizon)[#text(30pt)[*Primeros pasos *\ #datetime.today().display()\ V1.1 \ #text(12pt)[correode.toni\@outlook.es] ]],  
 )
 #pagebreak()
 #outline(  
@@ -16,6 +17,9 @@
 #pagebreak()
 
 #set box(outset:2pt, fill:luma(220))
+//#counter(page).update(1)
+#set page(numbering: "1 / 1")
+
 = Registro en Typst
 Visitar la web #link("https://typst.app/")\
 Se necesita un dirección de correo que luego hay que confirmar y una contraseña, no pide ningún dato más.\
@@ -721,7 +725,7 @@ Ejemplo para el índice general:\
 #box(```typ #outline(indent: auto, title: [Índice])<indice-general>```)
 
 - Referencia al índice: 
-#box(```typ Volver al #link(indice-general)[índice]```)\
+#box(```typ Volver al #link(<indice-general>)[índice]```)\
 Volver al #link(<indice-general>)[índice]
 
 #pagebreak()
@@ -1031,17 +1035,106 @@ Actualizar el valor del contador de página a 1:
 ```
 )
 
-// #set page(footer:context [
-//   #rect(
-//     width: 100%,stroke: (top:0.1pt),
-//     [Texto para el pie de página a la izquierda
-//     #h(1fr)    
-//     #counter(page).display("1 / 1",both:true)]
-//     //#counter(page).display("pág. 1")]
-//   )
-// ])
+= Expresiones matemáticas
+Typst permite crear expresiones matemáticas encerrándolas entre dos símbolos #box(```typ $$```).\
+Se pueden incluir expresiones en la misma línea de texto si no se deja ningún espacio en blanco rodeando a la expresión #box(```typ $expresión$```).
 
-= Uso de Bibliografía
+#box(```typ Esto es solo un ejemplo: la solución del problemas es $x>3 " y " x<5, " "  forall y in RR$  sin tener en cuenta los valores de $pi$ como se ha visto en el tema anterior.```)\
+Esto es solo un ejemplo: la solución del problemas es $x>3 " y " x<5, " "  forall y in RR$  sin tener en cuenta los valores $pi$ como se ha visto en el tema anterior.
+
+Si se incluyen espacios rodeando a la expresión #box(```typ $ expresión $```), se consigue que se muestren centradas en la siguiente línea.\
+
+#box(```typ Esto es solo un ejemplo: la solución del problemas es $ x>3 " y " x<5, " "  forall y in RR $  sin tener en cuenta los valores de $pi$ como se ha visto en el tema anterior.```)\
+Esto es solo un ejemplo: la solución del problemas es $ x>3 " y " x<5, " "  forall y in RR $  sin tener en cuenta los valores $pi$ como se ha visto en el tema anterior.
+
+Se aconseja escribir las expresiones del siguiente modo:\
+#box(```typ 
+$ 
+expresión\
+expresión\
+expresión
+$ ```)
+
+Un ejemplo: (ojo a los espacios en blanco):\
+#box(```typ
+$
+f(x_1)=3_i a x^(3+pi) − 4 r x^2 + x y_(i+n)\ 
+sum_(x=1) ^(n-1)  = t/(1+3r) dot sqrt(4) dot root(7,95)\
+y(x)= integral_1^2 x^3 dif x  \
+G(x)=3+root(x,3t)/alpha\
+cal(Y)(x)=op(lim,limits: #true)_(x-> + oo) plus.minus (10 dot cancel(m))/cancel(m)
+$
+```)
+
+$
+f(x_1)=3_i a x^(3+pi) − 4 r x^2 + x y_(i+n)\ 
+sum_(x=1) ^(n-1)  = t/(1+3r) dot sqrt(4) dot root(7,95)\
+y(x)= integral_1^2 x^3 dif x  \
+G(x)=3+root(x,3t)/alpha\
+cal(Y)(x)=op(lim,limits: #true)_(x-> + oo) plus.minus (10 dot cancel(m))/cancel(m)
+$
+
+Para alinear todas las expresiones en un punto se coloca el símbolo &
+#box(```typ
+$
+f(x_1)&=3_i a x^(3+pi) − 4 r x^2 + x y_(i+n)\ 
+sum_(x=1)^(n-1)&=t/(1+3r) dot sqrt(4) dot root(7,95)\
+y(x)&=integral_1^2 x^3 dif x \
+$
+```)
+$
+f(x_1)&=3_i a x^(3+pi) − 4 r x^2 + x y_(i+n)\ 
+sum_(x=1)^(n-1)&=t/(1+3r) dot sqrt(4) dot root(7,95)\
+y(x)&=integral_1^2 x^3 dif x \
+$
+
+Para que las expresiones aparezcan enumeradas hay que configurar:
+#box(```typ #set math.equation(numbering: "(1)")```)
+
+#box(```typ 
+#set math.equation(numbering: "(1)")
+$
+f(x_1)&=3_i a x^(3+pi) − 4 r x^2 + x y_(i+n)\ 
+sum_(x=1)^(n-1)&=t/(1+3r) dot sqrt(4) dot root(7,95)\
+$
+$
+y(x)=integral_1^2 x^3 dif x \
+$
+```)
+
+#set math.equation(numbering: "(1)")
+$
+f(x_1)&=3_i a x^(3+pi) − 4 r x^2 + x y_(i+n)\ 
+sum_(x=1)^(n-1)&=t/(1+3r) dot sqrt(4) dot root(7,95)\
+$
+
+$
+y(x)=integral_1^2 x^3 dif x \
+$
+
+Se han separado en dos bloques, el bloque 1 tiene dos expresiones y el segundo solo tiene una.\
+
+Se pueden referenciar del mismo modo que se hace con figuras, tablas, códigos, etc si se marcan con una etiqueta.\
+Si se configura #box(```typ #set math.equation(numbering: "(1)", supplement: "Eq")```) se mostrará  "Eq" seguido del número correspondiente.
+#box(```typ #set math.equation(numbering: "(1)", supplement: "Eq")```)\
+
+#box(```typ
+$
+y(x)=integral.double_1 ^infinity x³ dif x gt.eq.slant abs(3)
+$<mat-int-doble>
+Puede verse en @mat-int-doble que siempre es un valor positivo.
+```)
+
+#set math.equation(numbering: "(1)", supplement: "Eq")
+$
+y(x)=integral.double_1 ^infinity x³ dif x gt.eq.slant abs(3)
+$<mat-int-doble>
+Puede verse en @mat-int-doble que siempre es un valor positivo.
+
+Es solo un pequeño ejemplo de las posibilidades que ofrece Typst, consultar la ayuda #link("https://typst.app/docs/reference/math/") para ver opciones, símbolos, etc.
+
+= Uso de Bibliografía <sec-bibliografia>
+
 #link("https://typst.app/docs/reference/model/bibliography/")\
 Typst mantiene la compatibilidad con los archivos .bib\
 
@@ -1090,6 +1183,32 @@ El apartado de Bibliografía se va rellenando  con las citas utilizadas.
 
 #image("img/2024-12-29_02-08.png")
 
-#bibliography("30-bibliografia.bib")
+#bibliography("30-bibliografia.bib") 
+
+#heading(numbering: none)[Anexos]
+#let anexo(body) = { 
+  set heading(numbering: "A", supplement: [Anexo])
+  counter(heading).update(0)    
+  body
+}
+#show: anexo
+= Cómo mostrar Anexos
+Los anexos se suelen añadir después de incluir la bibliografía.\
+#box(```typ 
+#heading(numbering: none)[Anexos]
+#let anexo(body) = { 
+  set heading(numbering: "A", supplement: [Anexo])
+  counter(heading).update(0)    
+  body
+}
+#show: anexo
+```)
+
+La primera línea #box(```typ #heading(numbering: none)[Anexos]```) crear una nueva entrada sin enumerar en el ínidce de contenidos.\
+El resto de líneas de código consiguen que los anexos se enumeren con letras empezando con la "A".\
+Cada nueva sección de nivel 1 que se cree a partir de este momento aparecerá como un nuevo anexo con su letra correspondiente.
+#image("img/2025-01-04_22-37.png")
+
+
 
 
