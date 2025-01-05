@@ -1092,7 +1092,6 @@ Para que las expresiones aparezcan enumeradas hay que configurar:
 #box(```typ #set math.equation(numbering: "(1)")```)
 
 #box(```typ 
-#set math.equation(numbering: "(1)")
 $
 f(x_1)&=3_i a x^(3+pi) − 4 r x^2 + x y_(i+n)\ 
 sum_(x=1)^(n-1)&=t/(1+3r) dot sqrt(4) dot root(7,95)\
