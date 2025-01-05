@@ -1203,7 +1203,7 @@ Los anexos se suelen añadir después de incluir la bibliografía.\
 #show: anexo
 ```)
 
-La primera línea #box(```typ #heading(numbering: none)[Anexos]```) crear una nueva entrada sin enumerar en el ínidce de contenidos.\
+La primera línea #box(```typ #heading(numbering: none)[Anexos]```) crea una nueva entrada sin enumerar en el índice de contenidos.\
 El resto de líneas de código consiguen que los anexos se enumeren con letras empezando con la "A".\
 Cada nueva sección de nivel 1 que se cree a partir de este momento aparecerá como un nuevo anexo con su letra correspondiente.
 #image("img/2025-01-04_22-37.png")
