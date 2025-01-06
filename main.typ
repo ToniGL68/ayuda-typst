@@ -1,9 +1,8 @@
 #set text(lang: "es", region:"eu")
-#set text( font: "New Computer Modern" )
-#set text(12pt)
+//#set text( font: "New Computer Modern" )
+//#set text(12pt)
 #set heading( numbering: "1.1")
-#set page(numbering: none)
-//set page(numbering: "1 / 1")
+#set page(numbering: "1 / 1")
 
 #grid(columns: 1fr,  rows: (1fr,1fr), 
   grid.cell(align:center+horizon)[#link("https://typst.app/")[#rect(radius: 5pt,inset: 10mm,fill:rgb(66,164,182),text(90pt,fill: white)[TYPST])]], 
@@ -17,9 +16,6 @@
 #pagebreak()
 
 #set box(outset:2pt, fill:luma(220))
-//#counter(page).update(1)
-#set page(numbering: "1 / 1")
-
 = Registro en Typst
 Visitar la web #link("https://typst.app/")\
 Se necesita un dirección de correo que luego hay que confirmar y una contraseña, no pide ningún dato más.\
@@ -83,7 +79,7 @@ Consultar también los comandos #box(```typ #page()```) y #box(```typ #par()```)
   [Color], [#box(```typ #text(fill:red)[Texto en rojo]```)], [#text(fill: red)[Texto en rojo]],
   [Color y negrita], [#box(```typ #text(fill:blue)[*Negrita azul*]```)], [#text(fill:blue)[*Negrita azul*]],
   [Resaltado],[#box(```typ #highlight[Texto]```)],[#highlight[Texto]],
-  [Resaltado verde],[#box(```typ #highlight(fill: lime)[Texto]```)],[#highlight(fill: lime)[Texto]],),
+  [Resaltado verde],[#box(```typ #highlight(fill: lime)[Texto]```)],[#highlight(fill: lime)[Texto]],
   [Forzar salto de línea], table.cell(colspan: 2)[ Con la barra inclinada #text(fill: blue)[#box(```typ \```)]],
   [Cambiar de párrafo], table.cell(colspan: 2)[Dos veces enter.], 
   [Salto de página], table.cell(colspan: 2)[#box(```typ #pagebreak()```)],
@@ -203,10 +199,10 @@ Se usa #box(```typ / palabra: contenido```). Necesita los #text(fill: red)[*:*]\
 / ADSL: Asynchronous Digital Suscriber Line 
 / ATM:  Asynchronous Transfer Mode 
 / BiOS: Basic Input Output System 
-/ DHCP: Dinamic Host Control Protocol 
-/ HTML: HyperText Markup Languaje
+/ DHCP: Dynamic Host Configuration Protocol 
+/ HTML: Hypertext Markup Language
 / LAN: Local Area Network
-/ RAM: Random Acces Memory 
+/ RAM: Random Access Memory
 / SMTP: Simple Mail Transfer Protocol 
 / WAN: Wide Area Network 
 ```)
@@ -214,10 +210,10 @@ Se usa #box(```typ / palabra: contenido```). Necesita los #text(fill: red)[*:*]\
 / ADSL: Asynchronous Digital Suscriber Line 
 / ATM:  Asynchronous Transfer Mode 
 / BiOS: Basic Input Output System 
-/ DHCP: Dinamic Host Control Protocol 
-/ HTML: HyperText Markup Languaje
+/ DHCP: Dynamic Host Configuration Protocol 
+/ HTML: Hypertext Markup Language
 / LAN: Local Area Network
-/ RAM: Random Acces Memory 
+/ RAM: Random Access Memory 
 / SMTP: Simple Mail Transfer Protocol 
 / WAN: Wide Area Network 
 
@@ -718,7 +714,7 @@ Ejemplo de una etiqueta para un apartado:\
 ```typ = Gestión de residuos <sec:ges-residuos>```\
 
 Se pueden poner etiquetas en cualquier parte del documento, pero no se referencian del mismo modo.
-Las referencias a figuras, tablas, códigos, secciones se hacen usando #box(``` @```) y las referencias a otras partes del documento se hacen usando #box(```typ #link()```)
+Las referencias a figuras, tablas, códigos, secciones se hacen usando #box(``` @```) y las referencias a otras partes del documento se hacen usando #box(```typ #link(<etiqueta>)[ ... ]```)
 
 Ejemplo para el índice general:\
 - Etiquetado del índice:
@@ -1091,7 +1087,7 @@ $
 Para que las expresiones aparezcan enumeradas hay que configurar:
 #box(```typ #set math.equation(numbering: "(1)")```)
 
-#box(```typ 
+#box(```typ
 $
 f(x_1)&=3_i a x^(3+pi) − 4 r x^2 + x y_(i+n)\ 
 sum_(x=1)^(n-1)&=t/(1+3r) dot sqrt(4) dot root(7,95)\
@@ -1113,27 +1109,26 @@ $
 
 Se han separado en dos bloques, el bloque 1 tiene dos expresiones y el segundo solo tiene una.\
 
-Se pueden referenciar del mismo modo que se hace con figuras, tablas, códigos, etc si se marcan con una etiqueta.\
+Se pueden referenciar del mismo modo que se hace con figuras, tablas, códigos, etc, si se marcan con una etiqueta.\
 Si se configura #box(```typ #set math.equation(numbering: "(1)", supplement: "Eq")```) se mostrará  "Eq" seguido del número correspondiente.
 #box(```typ #set math.equation(numbering: "(1)", supplement: "Eq")```)\
 
 #box(```typ
 $
-y(x)=integral.double_1 ^infinity x³ dif x gt.eq.slant abs(3)
+y(x)=integral.double_1 ^infinity x³ dif x gt.eq.slant abs(9)
 $<mat-int-doble>
 Puede verse en @mat-int-doble que siempre es un valor positivo.
 ```)
 
 #set math.equation(numbering: "(1)", supplement: "Eq")
 $
-y(x)=integral.double_1 ^infinity x³ dif x gt.eq.slant abs(3)
+y(x)=integral.double_1 ^infinity x³ dif x gt.eq.slant abs(9)
 $<mat-int-doble>
 Puede verse en @mat-int-doble que siempre es un valor positivo.
 
 Es solo un pequeño ejemplo de las posibilidades que ofrece Typst, consultar la ayuda #link("https://typst.app/docs/reference/math/") para ver opciones, símbolos, etc.
 
-= Uso de Bibliografía <sec-bibliografia>
-
+= Uso de Bibliografía
 #link("https://typst.app/docs/reference/model/bibliography/")\
 Typst mantiene la compatibilidad con los archivos .bib\
 
@@ -1163,26 +1158,33 @@ Este es el contenido del archivo bibliografía.bib
   year={2013}
 }
 
-@book{friedman2010beirut,
-  title={From beirut to jerusalem},
-  author={Friedman, Thomas L},
-  year={2010},
-  publisher={Farrar, Straus and Giroux}
+}
+@book{hodges2014alan,
+  title={Alan Turing: The Enigma: The Book That Inspired the Film" The Imitation Game"},
+  author={Hodges, Andrew},
+  year={2014},
+  publisher={Princeton University Press}
+}
 }```
 
 Ejemplo de código donde se usa la bibliografía:\
 #box(
   ```typ
-En este texto #lorem(30) como demuestra el estudio de @martinez2013mundo, no son problemas nuevos, son problemas que se vienen arrastrando desde la antigüedad según el libro @friedman2010beirut 
+Como se demuestra en el estudio de @martinez2013mundo, no son problemas nuevos, son problemas que se vienen arrastrando desde la antigüedad.
+
+La importancia de la criptografía en la II Guerra Mundial queda demostrada en  @hodges2014alan que revela claramente los secretos del funcionamiento de la máquina enigma.
 ```)
 
 Y su resultado:\
-En este texto #lorem(30) como demuestra el estudio de @martinez2013mundo, no son problemas nuevos, son problemas que se vienen arrastrando desde la antigüedad según el libro @friedman2010beirut
-El apartado de Bibliografía se va rellenando  con las citas utilizadas.
+Como se demuestra en el estudio de @martinez2013mundo, no son problemas nuevos, son problemas que se vienen arrastrando desde la antigüedad.
 
-#image("img/2024-12-29_02-08.png")
+La importancia de la criptografía en la II Guerra Mundial queda demostrada en  @hodges2014alan que revela claramente los secretos del funcionamiento de la máquina enigma.
 
-#bibliography("30-bibliografia.bib") 
+En el apartado de Bibliografía van apareciendo automáticamente las citas utilizadas.
+
+#rect( stroke: 0.5pt)[#image("/img/imagen-cap-bib.png")]
+
+#bibliography("30-bibliografia.bib")
 
 #heading(numbering: none)[Anexos]
 #let anexo(body) = { 
@@ -1206,8 +1208,5 @@ Los anexos se suelen añadir después de incluir la bibliografía.\
 La primera línea #box(```typ #heading(numbering: none)[Anexos]```) crea una nueva entrada sin enumerar en el índice de contenidos.\
 El resto de líneas de código consiguen que los anexos se enumeren con letras empezando con la "A".\
 Cada nueva sección de nivel 1 que se cree a partir de este momento aparecerá como un nuevo anexo con su letra correspondiente.
-#image("img/2025-01-04_22-37.png")
-
-
-
+#image("/img/2025-01-04_22-37.png")
 
