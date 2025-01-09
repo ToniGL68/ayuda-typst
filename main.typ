@@ -939,8 +939,119 @@ align(center+horizon)[Curso 2024/2025]
 )
 
 #pagebreak()
-
 #set page(margin:auto)
+
+
+= Cuestionarios `#grid()`
+== Cabecera
+#box()[
+```typ
+#rect(fill:luma(245), stroke:0.5pt)[
+#grid(columns: (5cm,1fr),rows: 2em, //stroke:1pt,
+grid.cell(align: right+bottom)[*Nombre y Apellidos:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width:95%)],
+grid.cell(align: right+bottom)[*Nombre de Grado:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 95%)],
+grid.cell(align: right+bottom)[*Curso y Grupo:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 15%)],
+grid.cell(align: right+bottom)[*Asignatura:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 95%)],
+grid.cell(align: right+bottom)[*Fecha:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 15%)],)
+]
+```
+]
+#rect(fill:luma(245), stroke:0.5pt)[
+#grid(columns: (5cm,1fr),rows: 2em, //stroke:1pt,
+grid.cell(align: right+bottom)[*Nombre y Apellidos:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width:95%)],
+grid.cell(align: right+bottom)[*Nombre de Grado:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 95%)],
+grid.cell(align: right+bottom)[*Curso y Grupo:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 15%)],
+grid.cell(align: right+bottom)[*Asignatura:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 95%)],
+grid.cell(align: right+bottom)[*Fecha:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 15%)],)
+]
+
+== Preguntas test 
+
+#box()[```typ
+#let check=[#box(outset:2pt, fill:none, stroke:1pt)[#hide[X]]]
+
+#let pregunta-test(numero_pregunta, enunciado, lista_de_respuestas)={
+  let letras="abcdefghijklmnopqrstuvxyz"  
+  [#v(0.5em)]
+  grid(columns: (1em,1fr),  
+  [*#numero_pregunta.*], [*#enunciado*]
+  )
+  [#v(0.5em)]  
+  for i in range(0,lista_de_respuestas.len()){    
+    grid(columns:(1.5em,1.5em,1.5em,1fr),      
+      [], [#check], [ #letras.at(i))], [#lista_de_respuestas.at(i)],      
+    )
+    [#v(0.5em)]    
+  }
+}
+
+#let e=[Enunciado de pregunta n test #lorem(20)]
+#let ra=[Respuesta a de enunciado e #lorem(10)]
+#let rb=[Respuesta b de enunciado e #lorem(15)]
+#let rc=[Respuesta c de enunciado e #lorem(40)]
+#let rd=[Respuesta d de enunciado e #lorem(15)]
+#let rr=(ra,rb,rc,rd)
+
+#pregunta-test(1,e,rr)
+
+```]
+
+#let check=[#box(outset:2pt, fill:none, stroke:1pt)[#hide[X]]]
+
+#let pregunta-test(numero_pregunta, enunciado, lista_de_respuestas)={
+  let letras="abcdefghijklmnopqrstuvxyz"  
+  [#v(0.5em)]
+  grid(columns: (1em,1fr),  
+  [*#numero_pregunta.*], [*#enunciado*]
+  )
+  [#v(0.5em)]  
+  for i in range(0,lista_de_respuestas.len()){    
+    grid(columns:(1.5em,1.5em,1.5em,1fr),      
+      [], [#check], [ #letras.at(i))], [#lista_de_respuestas.at(i)],      
+    )
+    [#v(0.5em)]    
+  }
+}
+
+#let e=[Enunciado de pregunta n test #lorem(20)]
+#let ra=[Respuesta a de enunciado e #lorem(10)]
+#let rb=[Respuesta b de enunciado e #lorem(15)]
+#let rc=[Respuesta c de enunciado e #lorem(40)]
+#let rd=[Respuesta d de enunciado e #lorem(15)]
+#let rr=(ra,rb,rc,rd)
+
+#pregunta-test(1,e,rr)
+
+== Preguntas desarrollo 
+#box()[```typ
+#let pregunta-desarrollo(numero_pregunta, enunciado, lineas)={  
+  [#v(0.5em)]
+  grid(columns: (1em,1fr),  
+  [*#numero_pregunta.*], [*#enunciado*]
+  )  
+  for i in range(0,lineas){[#linebreak()]}   
+  [#v(0.5em)]
+  }
+
+#let e=[Enunciado de pregunta n desarrollo #lorem(20)]
+#pregunta-desarrollo(4,e,5)  
+
+```]
+
+
+#let pregunta-desarrollo(numero_pregunta, enunciado, lineas_blanco)={  
+  [#v(0.5em)]
+  grid(columns: (1em,1fr),  
+  [*#numero_pregunta.*], [*#enunciado*]
+  )  
+  for i in range(0,lineas_blanco){[#linebreak()]}   
+  [#v(0.5em)]
+  }
+
+#let e=[Enunciado de pregunta n desarrollo #lorem(20)]
+#pregunta-desarrollo(4,e,5) 
+
+.... Siguiente pregunta ....
 
 
 = Encabezado de página
@@ -1128,6 +1239,12 @@ Puede verse en @mat-int-doble que siempre es un valor positivo.
 
 Es solo un pequeño ejemplo de las posibilidades que ofrece Typst, consultar la ayuda #link("https://typst.app/docs/reference/math/") para ver opciones, símbolos, etc.
 
+
+
+
+
+
+
 = Uso de Bibliografía
 #link("https://typst.app/docs/reference/model/bibliography/")\
 Typst mantiene la compatibilidad con los archivos .bib\
@@ -1209,4 +1326,9 @@ La primera línea #box(```typ #heading(numbering: none)[Anexos]```) crea una nue
 El resto de líneas de código consiguen que los anexos se enumeren con letras empezando con la "A".\
 Cada nueva sección de nivel 1 que se cree a partir de este momento aparecerá como un nuevo anexo con su letra correspondiente.
 #image("/img/2025-01-04_22-37.png")
+
+
+
+
+
 
