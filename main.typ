@@ -112,7 +112,7 @@ Dentro o fuera de los paréntesis, entre comillas o entre corchetes.
 #box()[```typ #text(18pt,[+ C5-contenido],fill:gray)```] \
 #text(18pt,[+ C5-contenido],fill:gray)
 
-Puedes crear tus propias funciones:\
+== Puedes crear tus propias funciones:\
 #box()[```typ #let rub(s)= text(fill: red)[*#underline(s)*]```] \
 #let rub(s)= text(fill: red)[*#underline(s)*] 
 #box()[```typ #rub("+ texto")```]\
@@ -201,28 +201,44 @@ Podría ser algo más complejo...\
 ]
 
 Aplicar reglas a un contenido:
-#let mis_reglas(contenido)=[
-  #set text(18pt,font:"New Computer Modern" )   
-  #set par(justify: true, leading: 0.2em)  
-  #set rect(stroke:1pt+red)     
-  #contenido
+#let mis_reglas(texto)=[
+  #set text(fill:green,font:"New Computer Modern" )   
+  #set par(justify: true, leading: 1.2em)  
+  #set rect(stroke:2pt+red) 
+  #texto
 ]
 
   #[
-    #show: mis_reglas[#lorem(30)]
+    #mis_reglas[Parámetro lorem 10 \ #lorem(10)]
+
+    #rect()[Aquí no aplica la regla \ #lorem(10)]
+    #show: mis_reglas
+    Después del `#show` se aplica la regla a todo.\
+    #lorem(10)
+    - l1
+    - l2
+     + e1
+     + e2
+    #rect("Texto verde en cuadro rojo")
   ]
 
-Aplicar reglas a un contenido:
-#let mis_reglas(contenido)={
-  set text(18pt,font:"New Computer Modern" )   
-  set par(justify: true, leading: 0.2em)  
-  set rect(stroke:1pt+red)     
-  contenido
+Se pueden usar \{\} en vez de \[\] y no es neceasrio el uso de \# al definir las reglas:
+#let mis_reglas2(doc)={
+  set text(fill:purple,font:"New Computer Modern" )   
+  set par(justify: true, leading: 0.5em)  
+  set rect(stroke:2pt+blue)  
+  doc 
 }
 
   #[
-    #show: mis_reglas[#lorem(40)]
-  ]
+    #show: mis_reglas2
+    #lorem(10)
+    #rect()[#lorem(10)]
+    #figure(kind:"letra", supplement: "Letra", caption: [Ñ gigante], text(38pt,"Ñ"))
+    #lorem(20)
+  ] 
+ 
+
 
 
 
