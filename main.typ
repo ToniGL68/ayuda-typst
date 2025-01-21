@@ -221,7 +221,7 @@ Aplicar reglas a un contenido:
 }
 
   #[
-    #show: mis_reglas[#lorem(30)]
+    #show: mis_reglas[#lorem(40)]
   ]
 
 
