@@ -91,6 +91,245 @@ Para comentar texto se utiliza la doble barra #box(```typ //```) \
 
 Con la combinación de teclas ``` Ctrl + / ``` se pueden comentar o descomentar bloques de texto seleccionados previamente.
 
+= Funciones - Argumentos
+Utilizando como ejemplo la función #box()[```typ #text()```].\
+Esta función admite muchos parámetros, que pueden verse #link("https://typst.app/docs/reference/text/text/")[_aquí._]\
+Hay diferentes formas de pasar el contenido al que se le aplicarán los parámetros:\
+Dentro o fuera de los paréntesis, entre comillas o entre corchetes.
+
+#box()[```typ #text(fill: red)[C1-contenido] ```]\
+#text(fill: red)[C1-contenido] 
+
+#box()[```typ #text(14pt, [*C2-contenido*])```] \
+#text(14pt, [*C2-contenido*])
+
+#box()[```typ #text("C3-contenido",fill:maroon)```] \
+#text("C3-contenido",fill:maroon) 
+
+#box()[```typ #text(20pt,font: "Noto Music","+ C4-contenido",fill:blue)```] \
+#text(20pt,font: "Noto Music","+ C4-contenido",fill:blue) 
+
+#box()[```typ #text(18pt,[+ C5-contenido],fill:gray)```] \
+#text(18pt,[+ C5-contenido],fill:gray)
+
+Puedes crear tus propias funciones:\
+#box()[```typ #let rub(s)= text(fill: red)[*#underline(s)*]```] \
+#let rub(s)= text(fill: red)[*#underline(s)*] 
+#box()[```typ #rub("+ texto")```]\
+#rub("+ texto")\
+
+#box()[```typ #rub[+ texto]```]\
+#rub[+ texto]\
+
+#box()[```typ #let lm22=[*Linux Mint 22.1*, ultima versión estable de este sistema operativo basado en *Ubuntu* que a su vez está basado en *Debian*]
+Es muy corriente utilizar #lm22```]
+
+#let lm22=[*Linux Mint 22.1*, ultima versión estable de este sistema operativo basado en *Ubuntu* que a su vez está basado en *Debian*]
+Es muy corriente utilizar #lm22 
+
+
+= Reglas
+Ya se ha visto anteriormente que pueden aplicarse reglas para todo el documento si se colocan al principio, es el caso de: \
+#box()[```typ #set text( 12pt,font: "New Computer Modern")```]\
+También se ha visto que luego puede modificarse para un contenido en concreto:
+#box()[```typ #text(18pt,"C3-contenido",fill:maroon)```] \
+#text(18pt,"C3-contenido",fill:maroon)\
+
+También es posible asignar unas reglas a un bloque de contenido con #box()[```typ #[reglas contenido]```] \
+#box()[```typ #[#set text(fill:navy,14pt,font:"Nimbus Roman" )
+  #set align(right)
+  Un día de trabajo cualquiera y otro día más con los mismos problemas.\
+  No hay razón para preocuparse.
+]
+Fuera del bloque todo sigue igual que estaba.```]
+
+#[#set text(fill:navy,14pt,font:"Nimbus Roman" )
+  #set align(right)
+  Un día de trabajo cualquiera y otro día más con los mismos problemas.\
+  No hay razón para preocuparse.
+]
+Fuera del bloque todo sigue igual que estaba.
+
+== Uso de `#show`
+Con `#show` se puede hacer lo siguiente:\
+#box()[```typ
+#show "mi_aviso":[#v(1em)#rect(stroke: 3pt+red,outset: 3pt)
+[*IMPORTANTE REPASAR LOS SIGUIENTES PUNTOS:*]#v(1em)]
+
+mi_aviso
++ Inicio del procedimiento
++ Abrir, modificar y cerrar
++ Anotar la fecha
+```]
+
+#show "mi_aviso":[#v(1em)#rect(stroke: 3pt+red,outset: 3pt )[*IMPORTANTE REPASAR LOS SIGUIENTES PUNTOS:*]#v(1em)]
+mi_aviso
++ Inicio del procedimiento
++ Abrir, modificar y cerrar
++ Anotar la fecha
+
+También permite aplicar una regla personalizada a todo el documento.\
+#box()[```typ #show enum: set text(style: "italic")
++ Elemento 1
+ + Subelemento 1
++ Elemento 2```]
+
+A partir de ahora todas las listas enumeradas aparecerán en cursiva por defecto.
+
+#[#show enum: set text(style: "italic")
++ Elemento 1
+ + Subelemento 1
++ Elemento 2]
+
+
+Podría ser algo más complejo...\
+#box()[```typ #show list:it=>[
+  #set text(fill:blue,16pt,style: "italic")
+  #set align(center)  
+  #underline(smallcaps(it))]
+
+- Dos unidades de:  
+  - Conector usb ```]
+  
+#[#show list:it=>[
+  #set text(fill:blue,16pt,style: "italic")
+  #set align(center)  
+  #underline(smallcaps(it))]
+
+- Dos unidades de:  
+  - Conector usb
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//#set text(12pt)```typ #set text(12pt, font:)]
+
+// + Regla para un bloque:\
+//   #[
+//   #set text(fill:navy, stroke: 0.2pt+yellow); Dentro del bloque\ C6-contenido #lorem(3) \
+//   ]
+// + Fuera del bloque 
+//   Fuera del bloque\ C6-contenido #lorem(3) 
+
+// + Lista con reglas para un bloque:
+//     #[
+//     #set list(marker: ([\u{25C6}], [\u{2605}]))
+//     - item
+//     - item
+//       - sub-item
+//     ]
+// + Lista fuera de las reglas de bloque:
+//   - item 
+//   - item 
+//     - sub-item
+  
+// + Regla personalizada  asignando un nombre (rys= Rojo y subrayado):\  
+//   #let rys(s)= text(fill: red)[#underline(s)]
+//   - Aplicar regla personalizada a un contenido:\
+//   #rys[C8-Contenido  #lorem(5)]
+
+// + Aplicar regla personalizada a todo el documento `#show`:\
+// #show link: emph
+// @fig-2img-grid \
+
+// #show ref:it=> underline(emph(strong(it)))
+// @fig-2img-grid
+
+= Plantillas
+Pendiente ...
+
+#let plantilla_0(doc) = [  
+  #set text(lang: "es", region:"eu")
+  #set text(12pt,font: "New Computer Modern")
+  #set page("a4", margin: (x:3cm,y:2.5cm))
+  #outline(indent: auto, title: [Índice])
+  
+  #set page(header:[#rect(stroke: (bottom:0.1pt),width: 100%,
+      align(center)[Texto para el encabezado con línea])])
+  #set page( numbering: "1") 
+  #set heading( numbering: "1.1")
+  
+  #doc
+]
+
+//#show: plantilla_0
+
+#let plantilla_1(doc) = {  
+  set text(lang: "es", region:"eu")
+  set text(20pt,font: "New Computer Modern")
+  set page("a4", margin: (x:3cm,y:2.5cm))
+  outline(indent: auto, title: [Índice])
+  
+  set page(header:[#rect(stroke: (bottom:0.1pt),width: 100%,
+      align(center)[Texto para el encabezado con línea])])
+  set page( numbering: "1") 
+  set heading( numbering: "1.1")  
+  doc
+}
+//#show: plantilla_1
+
+#let plantilla_2(encab,doc) = {  
+  set text(lang: "es", region:"eu")
+  set text(12pt,font: "New Computer Modern")
+  set page("a4", margin: (x:3cm,y:2.5cm))
+  outline(indent: auto, title: [Índice])
+  
+  set page(header:align(center,encab))
+  set page( numbering: "1") 
+  set heading( numbering: "1.1")  
+  doc
+}
+// #show: doc => plantilla_2(
+//   [Esto va centrado en el encabezado de página],
+//   doc,
+// )
+
+
+#let reglas_libro(
+  autor: none,
+  titulo:none,
+  doc,
+) = {  
+  set text(lang: "es",region: "eu")
+  set text(12pt,font: "New Computer Modern")
+  set page(margin:(x:3cm,y:2.5cm))
+  set enum(full: true)
+  show link: set text(style: "italic")
+  
+  align(center+horizon)[#text(30pt,titulo)]
+  [#v(5cm)]
+  align(center)[#text(15pt,autor)]
+  pagebreak()
+  
+  set heading( numbering: "1.")
+  outline(title: [Índice de Contenidos], indent: auto)
+  pagebreak()
+  
+  set page (header:align(right+horizon)[#text(10pt,fill: luma(75),titulo)])
+  counter(page).update(1)
+  set page(numbering: "1")  
+}
+
+// #import "reglas.typ": reglas_libro
+// #show: reglas_libro.with(
+//   autor:[Nombre Autor],
+//   titulo:[Título de libro]  
+// ) 
 
 
 = Espaciado extra con ```#v()``` y ```#h()``` 
@@ -940,118 +1179,92 @@ align(center+horizon)[Curso 2024/2025]
 
 #pagebreak()
 #set page(margin:auto)
+= `#page(background:...) #page(foreground:...)` y `#place(...)`
+Background por debajo de todo el contenido.\
+Foreground por encima de todo el contenido.\
+#box()[```typ #place()```] permite ubicar cualquier objeto en una posición dada a través de coordenadas.\
+Son coordenadas relativas a la posición en la que se esté en la página.\
+La salida de este código puede verse en la página siguiente.
 
-
-= Cuestionarios `#grid()`
-== Cabecera
-#box()[
-```typ
-#rect(fill:luma(245), stroke:0.5pt)[
-#grid(columns: (5cm,1fr),rows: 2em, //stroke:1pt,
-grid.cell(align: right+bottom)[*Nombre y Apellidos:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width:95%)],
-grid.cell(align: right+bottom)[*Nombre de Grado:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 95%)],
-grid.cell(align: right+bottom)[*Curso y Grupo:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 15%)],
-grid.cell(align: right+bottom)[*Asignatura:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 95%)],
-grid.cell(align: right+bottom)[*Fecha:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 15%)],)
-]
-```
-]
-#rect(fill:luma(245), stroke:0.5pt)[
-#grid(columns: (5cm,1fr),rows: 2em, //stroke:1pt,
-grid.cell(align: right+bottom)[*Nombre y Apellidos:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width:95%)],
-grid.cell(align: right+bottom)[*Nombre de Grado:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 95%)],
-grid.cell(align: right+bottom)[*Curso y Grupo:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 15%)],
-grid.cell(align: right+bottom)[*Asignatura:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 95%)],
-grid.cell(align: right+bottom)[*Fecha:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 15%)],)
-]
-
-== Preguntas test 
-
-#box()[```typ
-#let check=[#box(outset:2pt, fill:none, stroke:1pt)[#hide[X]]]
-
-#let pregunta-test(numero_pregunta, enunciado, lista_de_respuestas)={
-  let letras="abcdefghijklmnopqrstuvxyz"  
-  [#v(0.5em)]
-  grid(columns: (1em,1fr),  
-  [*#numero_pregunta.*], [*#enunciado*]
-  )
-  [#v(0.5em)]  
-  for i in range(0,lista_de_respuestas.len()){    
-    grid(columns:(1.5em,1.5em,1.5em,1fr),      
-      [], [#check], [ #letras.at(i))], [#lista_de_respuestas.at(i)],      
+#box(```typ 
+#set page(
+  background: place(
+    dx:8cm,dy:-23cm, rotate(
+      35deg, rect(
+      fill: aqua,width: 30cm,height:45cm,
+      )
     )
-    [#v(0.5em)]    
-  }
-}
-
-#let e=[Enunciado de pregunta n test #lorem(20)]
-#let ra=[Respuesta a de enunciado e #lorem(10)]
-#let rb=[Respuesta b de enunciado e #lorem(15)]
-#let rc=[Respuesta c de enunciado e #lorem(40)]
-#let rd=[Respuesta d de enunciado e #lorem(15)]
-#let rr=(ra,rb,rc,rd)
-
-#pregunta-test(1,e,rr)
-
-```]
-
-#let check=[#box(outset:2pt, fill:none, stroke:1pt)[#hide[X]]]
-
-#let pregunta-test(numero_pregunta, enunciado, lista_de_respuestas)={
-  let letras="abcdefghijklmnopqrstuvxyz"  
-  [#v(0.5em)]
-  grid(columns: (1em,1fr),  
-  [*#numero_pregunta.*], [*#enunciado*]
   )
-  [#v(0.5em)]  
-  for i in range(0,lista_de_respuestas.len()){    
-    grid(columns:(1.5em,1.5em,1.5em,1fr),      
-      [], [#check], [ #letras.at(i))], [#lista_de_respuestas.at(i)],      
+)
+
+#set page(
+  foreground:  place(
+    dx:-29cm,dy:7cm, rotate(
+      35deg, rect(
+      fill: maroon,width: 50cm,height:3cm,stroke: (bottom:10pt+green),
+      )
     )
-    [#v(0.5em)]    
-  }
-}
+  )
+)
+= Título
+#place(
+  dx:-2.53cm, dy: 0cm,[#text(120pt)[\u{1F534}]]
+)
+#par(justify: true)[#lorem(300)]
 
-#let e=[Enunciado de pregunta n test #lorem(20)]
-#let ra=[Respuesta a de enunciado e #lorem(10)]
-#let rb=[Respuesta b de enunciado e #lorem(15)]
-#let rc=[Respuesta c de enunciado e #lorem(40)]
-#let rd=[Respuesta d de enunciado e #lorem(15)]
-#let rr=(ra,rb,rc,rd)
+#place(
+  dx: 6cm, dy: 0cm, image("img/perros.png",width: 50%)
+)
 
-#pregunta-test(1,e,rr)
+#lorem(300)
 
-== Preguntas desarrollo 
-#box()[```typ
-#let pregunta-desarrollo(numero_pregunta, enunciado, lineas)={  
-  [#v(0.5em)]
-  grid(columns: (1em,1fr),  
-  [*#numero_pregunta.*], [*#enunciado*]
-  )  
-  for i in range(0,lineas){[#linebreak()]}   
-  [#v(0.5em)]
-  }
+#place(
+  dx: 13.5cm, dy: -5mm,[#text(200pt)[A]]
+)
 
-#let e=[Enunciado de pregunta n desarrollo #lorem(20)]
-#pregunta-desarrollo(4,e,5)  
+#pagebreak()
+#set page(foreground: none, background: none)
+```)
 
-```]
+#pagebreak()
 
+#set page(
+  background: place(
+    dx:8cm,dy:-23cm, rotate(
+      35deg, rect(
+      fill: aqua,width: 30cm,height:45cm,
+      )
+    )
+  )
+)
 
-#let pregunta-desarrollo(numero_pregunta, enunciado, lineas_blanco)={  
-  [#v(0.5em)]
-  grid(columns: (1em,1fr),  
-  [*#numero_pregunta.*], [*#enunciado*]
-  )  
-  for i in range(0,lineas_blanco){[#linebreak()]}   
-  [#v(0.5em)]
-  }
+#set page(
+  foreground:  place(
+    dx:-29cm,dy:7cm, rotate(
+      35deg, rect(
+      fill: maroon,width: 50cm,height:3cm,stroke: (bottom:10pt+green),
+      )
+    )
+  )
+)
 
-#let e=[Enunciado de pregunta n desarrollo #lorem(20)]
-#pregunta-desarrollo(4,e,5) 
+#place(
+  dx:-2.53cm, dy: 0cm,[#text(120pt)[\u{1F534}]]
+)
+#par(justify: true)[#lorem(300)]
 
-.... Siguiente pregunta ....
+#place(
+  dx: 6cm, dy: 0cm, image("img/perros.png",width: 50%)
+)
+
+#lorem(300)
+
+#place(
+  dx: 13.5cm, dy: -5mm,[#text(200pt)[A]]
+)
+
+#pagebreak()
+#set page(foreground: none, background: none)
 
 
 = Encabezado de página
@@ -1141,6 +1354,117 @@ Actualizar el valor del contador de página a 1:
 #counter(page).update(1)
 ```
 )
+= Cuestionarios `#grid()`
+== Cabecera
+#box(
+```typ
+#rect(fill:luma(245), stroke:0.5pt)[
+#grid(columns: (5cm,1fr),rows: 2em, //stroke:1pt,
+grid.cell(align: right+bottom)[*Nombre y Apellidos:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width:95%)],
+grid.cell(align: right+bottom)[*Nombre de Grado:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 95%)],
+grid.cell(align: right+bottom)[*Curso y Grupo:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 15%)],
+grid.cell(align: right+bottom)[*Asignatura:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 95%)],
+grid.cell(align: right+bottom)[*Fecha:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 15%)],)
+
+```)
+
+#rect(fill:luma(245), stroke:0.5pt)[
+#grid(columns: (5cm,1fr),rows: 2em, //stroke:1pt,
+grid.cell(align: right+bottom)[*Nombre y Apellidos:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width:95%)],
+grid.cell(align: right+bottom)[*Nombre de Grado:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 95%)],
+grid.cell(align: right+bottom)[*Curso y Grupo:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 15%)],
+grid.cell(align: right+bottom)[*Asignatura:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 95%)],
+grid.cell(align: right+bottom)[*Fecha:*#h(1em)], [#rect(stroke: (bottom:0.5pt),width: 15%)],)
+]
+
+== Preguntas test 
+
+#box()[```typ
+#let check=[#box(outset:2pt, fill:none, stroke:1pt)[#hide[X]]]
+
+#let pregunta-test(numero_pregunta, enunciado, lista_de_respuestas)={
+  let letras="abcdefghijklmnopqrstuvxyz"  
+  [#v(0.5em)]
+  grid(columns: (1em,1fr),  
+  [*#numero_pregunta.*], [*#enunciado*]
+  )
+  [#v(0.5em)]  
+  for i in range(0,lista_de_respuestas.len()){    
+    grid(columns:(1.5em,1.5em,1.5em,1fr),      
+      [], [#check], [ #letras.at(i))], [#lista_de_respuestas.at(i)],      
+    )
+    [#v(0.5em)]    
+  }
+}
+
+#let e=[Enunciado de pregunta n test #lorem(20)]
+#let ra=[Respuesta a de enunciado e #lorem(10)]
+#let rb=[Respuesta b de enunciado e #lorem(15)]
+#let rc=[Respuesta c de enunciado e #lorem(40)]
+#let rd=[Respuesta d de enunciado e #lorem(15)]
+#let rr=(ra,rb,rc,rd)
+
+#pregunta-test(1,e,rr)
+
+```]
+
+#let check=[#box(outset:2pt, fill:none, stroke:1pt)[#hide[X]]]
+
+#let pregunta-test(numero_pregunta, enunciado, lista_de_respuestas)={
+  let letras="abcdefghijklmnopqrstuvxyz"  
+  [#v(0.5em)]
+  grid(columns: (1em,1fr),  
+  [*#numero_pregunta.*], [*#enunciado*]
+  )
+  [#v(0.5em)]  
+  for i in range(0,lista_de_respuestas.len()){    
+    grid(columns:(1.5em,1.5em,1.5em,1fr),      
+      [], [#check], [ #letras.at(i))], [#lista_de_respuestas.at(i)],      
+    )
+    [#v(0.5em)]    
+  }
+}
+
+#let e=[Enunciado de pregunta n test #lorem(20)]
+#let ra=[Respuesta a de enunciado e #lorem(10)]
+#let rb=[Respuesta b de enunciado e #lorem(15)]
+#let rc=[Respuesta c de enunciado e #lorem(40)]
+#let rd=[Respuesta d de enunciado e #lorem(15)]
+#let rr=(ra,rb,rc,rd)
+
+#pregunta-test(1,e,rr)
+
+== Preguntas desarrollo 
+#box()[```typ
+#let pregunta-desarrollo(numero_pregunta, enunciado, lineas)={  
+  [#v(0.5em)]
+  grid(columns: (1em,1fr),  
+  [*#numero_pregunta.*], [*#enunciado*]
+  )  
+  for i in range(0,lineas){[#linebreak()]}   
+  [#v(0.5em)]
+  }
+
+#let e=[Enunciado de pregunta n desarrollo #lorem(20)]
+#pregunta-desarrollo(4,e,5) 
+#pregunta-desarrollo(5,e,3)
+```]
+
+
+#let pregunta-desarrollo(numero_pregunta, enunciado, lineas_blanco)={  
+  [#v(0.5em)]
+  grid(columns: (1em,1fr),  
+  [*#numero_pregunta.*], [*#enunciado*]
+  )  
+  for i in range(0,lineas_blanco){[#linebreak()]}   
+  [#v(0.5em)]
+  }
+
+#let e=[Enunciado de pregunta n desarrollo #lorem(20)]
+#pregunta-desarrollo(4,e,5) 
+#pregunta-desarrollo(5,e,3) 
+ Siguiente pregunta ....
+#pagebreak()
 
 = Expresiones matemáticas
 Typst permite crear expresiones matemáticas encerrándolas entre dos símbolos #box(```typ $$```).\
@@ -1249,7 +1573,7 @@ Es solo un pequeño ejemplo de las posibilidades que ofrece Typst, consultar la 
 #link("https://typst.app/docs/reference/model/bibliography/")\
 Typst mantiene la compatibilidad con los archivos .bib\
 
-Para mostrar la bibliografía se hace con #box(```typ #bibliography("bibliografía.bib")```)\
+Para mostrar la bibliografía se hace con #box(```typ #bibliography("nombre_archivo_bibliografía.bib")```)\
 A partir de que se escribe esa línea se crea el apartado "Bibliografía" y aparece automáticamente en el índice general sin enumerar.\
 No aparecerá ninguna hasta que no sea citada.\
 La forma de referenciar la bibliografía es la misma que se usa para imágenes, tablas... y ya se ha visto en la @sec-crear-referencias.
@@ -1322,13 +1646,7 @@ Los anexos se suelen añadir después de incluir la bibliografía.\
 #show: anexo
 ```)
 
-La primera línea #box(```typ #heading(numbering: none)[Anexos]```) crea una nueva entrada sin enumerar en el índice de contenidos.\
+La primera línea #box(```typ #heading(numbering: none)[Anexos] ```) crea una nueva entrada sin enumerar en el índice de contenidos.\
 El resto de líneas de código consiguen que los anexos se enumeren con letras empezando con la "A".\
 Cada nueva sección de nivel 1 que se cree a partir de este momento aparecerá como un nuevo anexo con su letra correspondiente.
 #image("/img/2025-01-04_22-37.png")
-
-
-
-
-
-
