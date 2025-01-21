@@ -200,6 +200,61 @@ Podría ser algo más complejo...\
   - Conector usb
 ]
 
+Aplicar reglas a un contenido:
+#let mis_reglas(contenido)=[
+  #set text(18pt,font:"New Computer Modern" )   
+  #set par(justify: true, leading: 0.2em)  
+  #set rect(stroke:1pt+red)     
+  #contenido
+]
+
+  #[
+    #show: mis_reglas[#lorem(30)]
+  ]
+
+Aplicar reglas a un contenido:
+#let mis_reglas(contenido)={
+  set text(18pt,font:"New Computer Modern" )   
+  set par(justify: true, leading: 0.2em)  
+  set rect(stroke:1pt+red)     
+  contenido
+}
+
+  #[
+    #show: mis_reglas[#lorem(30)]
+  ]
+
+
+
+
+
+Crear un conjunto de reglas para luego aplicarlas al documento: 
+#let mis_reglas_default(doc)=[
+  #set text(12pt,font:"New Computer Modern" )
+  #set text(lang: "es", region: "eu")
+  #set page("a4", margin: (x:3cm,y:2.5cm))
+  #set page(numbering:("1/1"))
+  #set page(header: [#align(center)[Mi encabezado de página centrado]]) 
+  #set par(justify: true, leading: 1.5em,spacing: 3em)
+  #set heading(numbering: "A")  
+  #set enum(full: true)
+  #set rect(stroke:1pt+red)
+  #doc    
+]
+
+/* 
+#[#show: doc => mis_reglas_default(doc) 
+
+  Ayer
+#rect()[Hola]
+]
+
+ */
+
+
+
+
+
 
 
 
