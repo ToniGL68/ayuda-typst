@@ -208,36 +208,66 @@ Aplicar reglas a un contenido:
   #texto
 ]
 
-  #[
-    #mis_reglas[Parámetro lorem 10 \ #lorem(10)]
+#[
+  #mis_reglas[Parámetro lorem 10 \ #lorem(10)]
 
-    #rect()[Aquí no aplica la regla \ #lorem(10)]
-    #show: mis_reglas
-    Después del `#show` se aplica la regla a todo.\
-    #lorem(10)
-    - l1
-    - l2
-     + e1
-     + e2
-    #rect("Texto verde en cuadro rojo")
-  ]
+  #rect()[Aquí no aplica la regla \ #lorem(10)]
+  #show: mis_reglas
+  Después del `#show` se aplica la regla a todo.\
+  #lorem(10)
+  - l1
+  - l2
+    + e1
+    + e2
+  #rect("Texto verde en cuadro rojo")
+]
 
-Se pueden usar \{\} en vez de \[\] y no es neceasrio el uso de \# al definir las reglas:
-#let mis_reglas2(doc)={
+Se pueden usar `{}` en vez de `[]` y no es necesario el uso de `#` al definir las reglas:
+#let mis_reglas2(docum)={
   set text(fill:purple,font:"New Computer Modern" )   
   set par(justify: true, leading: 0.5em)  
   set rect(stroke:2pt+blue)  
+  docum 
+}
+
+#[
+  #show: mis_reglas2
+  #lorem(10)
+  #rect()[#lorem(10)]
+  #figure(kind:"letra", supplement: "Letra", caption: [Ñ gigante], text(38pt,"Ñ"))
+  #lorem(20)
+] 
+
+
+Se pueden pasar parámetros para ser usados dentro del conjunto de reglas:
+#let mis_reglas3(enmarcar,doc)={
+  set text(fill:purple,font:"New Computer Modern" )   
+  set par(justify: true, leading: 1.5em)  
+  set rect(stroke:2pt+blue)
+  rect()[Texto fijo definido dentro de las reglas. _Aquí no se usa el parámetro_]
+  rect()[#enmarcar _Aqui sí se usa el parámetro_]
+  list([*Elemento 1*], enmarcar)
+  enmarcar + linebreak()
+  [#underline()[Último paso de las reglas y ahora empieza el documento] \ ]
   doc 
 }
 
-  #[
-    #show: mis_reglas2
-    #lorem(10)
-    #rect()[#lorem(10)]
-    #figure(kind:"letra", supplement: "Letra", caption: [Ñ gigante], text(38pt,"Ñ"))
-    #lorem(20)
-  ] 
+#[#show: doc =>mis_reglas3([Esto-es-texto-pasado-como-parámetro],doc)
+  #text(18pt)[Inicio del documento escrito donde ya se aplican las reglas.\
+  A estas dos líneas se les ha modificado el tamaño a 18pt.]\
+  #lorem(10)
+  #rect()[#lorem(30)]
+  #figure(kind:"letra", supplement: "Letra", caption: [Ñ gigante], text(38pt,"Ñ"))
+  #lorem(45)
+] 
  
+Podrían utilizarse varios paraḿetros con los valores para el encabezado, el título, 
+el pie de página, el autor, construir una portada, crear un índice por defecto, etc.  ...\
+Con todos esos valores se podría crear una plantilla.
+
+= Plantillas
+
+
 
 
 
